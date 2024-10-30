@@ -216,7 +216,7 @@
     {
         var now = new Date(new Date().getTime() + offset*60*60*1000);
         var timezone = document.querySelector("#timezone");
-        var hours = now.getUTCHours() - timezone.value;
+        var hours = now.getUTCHours() + parseFloat(timezone.value);
         var minutes = now.getUTCMinutes();
         var seconds = now.getUTCSeconds();
         console.log(hours, minutes, seconds);
