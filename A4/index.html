@@ -9,7 +9,7 @@
     <script>
         var images = []
         var index = 0;
-        var animation = "fading";
+      //  var animation = "fading";
         function start(){
             images = window.location.hash.replace("#", "").split(",");
             animation = images.pop();
@@ -22,7 +22,8 @@
             }
             $("#slideshow").html(markup);
             $("#numbers").html(markup1);
-            //document.getElementById("slideshow").innerHTML = markup;
+            document.getElementById("slideshow").innerHTML = markup;
+            
             goTo(index);
         }
 
@@ -33,8 +34,8 @@
                 $(".slide:nth-of-type(" + (index + 1) + ")").stop().animate({opacity: 1}, 1000);
             }
             else{
-                $(".slide").stop().animate({opacity: 0}, 0);
-                $(".slide:nth-of-type(" + (index + 1) + ")").stop().animate({opacity: 1}, 0);
+                const targetPosition = i * $(window).width(); // Calculate the target scroll position
+                $("#slideshow").stop().animate({ scrollLeft: targetPosition }, 1000);
             }
 
             $("#numbers button").removeClass("current");
@@ -92,20 +93,21 @@
         left:0;
     }
 
-    body.sliding #slideshow{
+    body.sliding #slideshow {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: hidden;
+    
+    }
+
+    body.sliding #slideshow .slide {
+        flex-shrink: 0;
         width: 100vw;
         height: 100vh;
-    }
-    
-    body.sliding #slideshow .slide{
-        width: 100%;
-        height: 100%;
         background-size: contain;
+        position: relative;
         background-repeat: no-repeat;
         background-position: center;
-        position: absolute;
-        top:0;
-        left:0;
     }
 
     #prev{
